@@ -1,0 +1,19 @@
+title: "should create city"
+given:
+  - time: 2013-05-24T12:00:00Z
+  - collection: restaurants
+    sequence: 5167cec5856107c479739654
+wts:
+  - when: GET restaurants
+    then: "[ ]"
+  - when: |
+          POST restaurants
+
+          { "color" : "RED" }
+    then: |
+          { "_id": "5167cec5856107c479739654", "color" : "RED" }
+  - when: GET restaurants
+    then: |
+        [
+          { "_id": "5167cec5856107c479739654", "color" : "RED" }
+        ]
