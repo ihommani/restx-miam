@@ -1,4 +1,4 @@
-package hellomongo;
+package miam;
 
 import com.google.common.base.Charsets;
 import restx.security.SignatureKey;
@@ -12,11 +12,12 @@ import javax.inject.Named;
 public class AppModule {
     @Provides
     public SignatureKey signatureKey() {
-         return new SignatureKey("3685755889849339038 636b37d4-f945-4a6b-8fea-31900e12861a restx-samples-hellomongo restx-samples-hellomongo".getBytes(Charsets.UTF_8));
+        return new SignatureKey("3685755889849339038 636b37d4-f945-4a6b-8fea-31900e12861a restx-samples-miam restx-samples-miam".getBytes(Charsets.UTF_8));
     }
 
-    @Provides @Named(JongoFactory.JONGO_DB_NAME)
+    @Provides
+    @Named(JongoFactory.JONGO_DB_NAME)
     public String dbName() {
-        return "restx-hellomongo";
+        return "restx-miam";
     }
 }

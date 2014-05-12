@@ -1,4 +1,4 @@
-package hellomongo;
+package miam;
 
 import com.google.common.base.Optional;
 import restx.server.WebServer;
@@ -6,9 +6,9 @@ import restx.server.JettyWebServer;
 
 /**
  * This class can be used to run the app.
- *
+ * <p/>
  * Alternatively, you can deploy the app as a war in a regular container like tomcat or jetty.
- *
+ * <p/>
  * Reading the port from system env PORT makes it compatible with heroku.
  */
 public class AppServer {
