@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.restx</groupId>
-    <artifactId>restx-samples-hellomongo</artifactId>
+    <artifactId>restx-samples-miam</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>restx-samples-hellomongo</name>
+    <name>restx-samples-miam</name>
 
     <properties>
         <maven.compiler.target>1.7</maven.compiler.target>
