@@ -1,6 +1,7 @@
 package miam.rest;
 
 import com.google.common.base.Optional;
+import miam.domain.Meal;
 import miam.domain.Restaurant;
 import org.bson.types.ObjectId;
 import restx.Status;
@@ -39,7 +40,7 @@ public class RestaurantResource {
     }
 
     @GET("/restaurants/{oid}")
-    public Optional<Restaurant> findCityById(String oid) {
+    public Optional<Restaurant> findRestaurantById(String oid) {
         return Optional.fromNullable(restaurants.get().findOne(new ObjectId(oid)).as(Restaurant.class));
     }
 
@@ -55,5 +56,41 @@ public class RestaurantResource {
         restaurants.get().remove(new ObjectId(oid));
         return Status.of("deleted");
     }
+
+    @GET("/restaurants/{oid}/meals")
+    public Iterable<Meal> getMeals(String oid) {
+        Optional<Restaurant> restaurantById = this.findRestaurantById(oid);
+        if (restaurantById.isPresent()) {
+            Restaurant restaurant = restaurantById.get();
+            return restaurant.getMeals();
+        }
+        return null;
+    }
+
+    @POST("/restaurants/{oid}/meals")
+    public Meal createMeal(String oid, Meal meal) {
+        Optional<Restaurant> restaurantOptional = Optional.fromNullable(restaurants.get().findOne(new ObjectId(oid)).as(Restaurant.class));
+
+        if (restaurantOptional.isPresent()) {
+            Restaurant restaurant = restaurantOptional.get();
+            restaurant.getMeals().add(meal);
+            restaurants.get().save(restaurantOptional.get());
+
+            return meal;
+        }
+        return null;
+    }
+
+    @GET("/restaurants/{oid}/meals/{mid}")
+    public Iterable<Meal> getMeals(String oid, String mid) {
+        Optional<Restaurant> restaurantById = this.findRestaurantById(oid);
+        if (restaurantById.isPresent()) {
+            Restaurant restaurant = restaurantById.get();
+            return restaurant.getMeals();
+        }
+        return null;
+    }
+
+
 
 }
