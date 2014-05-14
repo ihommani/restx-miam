@@ -34,7 +34,7 @@ public class RestaurantResource {
     }
 
     @POST("/restaurants")
-    public Restaurant createCity(Restaurant restaurant) {
+    public Restaurant createRestaurant(Restaurant restaurant) {
         restaurants.get().save(restaurant);
         return restaurant;
     }
@@ -45,14 +45,14 @@ public class RestaurantResource {
     }
 
     @PUT("/restaurants/{oid}")
-    public Restaurant updateCity(String oid, Restaurant restaurant) {
+    public Restaurant updateRestaurant(String oid, Restaurant restaurant) {
         checkEquals("oid", oid, "restaurant.key", restaurant.getKey());
         restaurants.get().save(restaurant);
         return restaurant;
     }
 
     @DELETE("/restaurants/{oid}")
-    public Status deleteCity(String oid) {
+    public Status deleteRestaurant(String oid) {
         restaurants.get().remove(new ObjectId(oid));
         return Status.of("deleted");
     }
@@ -90,7 +90,4 @@ public class RestaurantResource {
         }
         return null;
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-title: "should create city"
+title: "should create restaurant"
 given:
   - time: 2013-05-24T12:00:00Z
   - collection: restaurants

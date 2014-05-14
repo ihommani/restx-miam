@@ -1,5 +1,10 @@
 package miam.domain;
 
+import org.jongo.marshall.jackson.oid.Id;
+import org.jongo.marshall.jackson.oid.ObjectId;
+
+import java.util.Date;
+
 /**
  * Created by ismael on 12/05/14.
  *
@@ -8,9 +13,14 @@ package miam.domain;
  */
 public class Meal {
 
+    @Id
+    @ObjectId
+    private String key;
+
     private MealType mealType;
     private String name;
     private float price;
+    private Date date;
 
     public MealType getMealType() {
         return mealType;
@@ -39,13 +49,27 @@ public class Meal {
         return this;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Meal setKey(String key) {
+        this.key = key;
+        return this;
+    }
 
     @Override
     public String toString() {
         return "Meal{" +
-                "mealType=" + mealType +
+                "key='" + key + '\'' +
+                ", mealType=" + mealType +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", date=" + date +
                 '}';
     }
 }

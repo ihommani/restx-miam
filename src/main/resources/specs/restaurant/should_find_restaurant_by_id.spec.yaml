@@ -1,4 +1,4 @@
-title: should find city by id
+title: should find restaurant by id
 given:
   - time: 2013-05-26T09:16:34.523+02:00
   - collection: restaurants

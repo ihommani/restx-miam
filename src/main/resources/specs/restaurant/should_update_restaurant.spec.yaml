@@ -1,4 +1,4 @@
-title: should update city
+title: should update restaurant
 given:
   - time: 2013-05-26T09:17:30.440+02:00
   - collection: restaurants

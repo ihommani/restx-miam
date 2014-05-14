@@ -5,5 +5,5 @@ import restx.tests.FindSpecsIn;
 import restx.tests.RestxSpecTestsRunner;
 
 @RunWith(RestxSpecTestsRunner.class)
-@FindSpecsIn("specs/city")
+@FindSpecsIn("specs/restaurant")
 public class RestaurantSpecTest { }

@@ -1,4 +1,4 @@
-title: should_delete_city
+title: should_delete_restaurant
 given:
   - time: 2013-05-26T09:18:51.791+02:00
   - collection: restaurants
