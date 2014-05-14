@@ -60,6 +60,7 @@ public class RestaurantResource {
     @GET("/restaurants/{oid}/meals")
     public Iterable<Meal> getMeals(String oid) {
         Optional<Restaurant> restaurantById = this.findRestaurantById(oid);
+        //TODO: Use precondition checkPresent instead
         if (restaurantById.isPresent()) {
             Restaurant restaurant = restaurantById.get();
             return restaurant.getMeals();
@@ -70,7 +71,7 @@ public class RestaurantResource {
     @POST("/restaurants/{oid}/meals")
     public Meal createMeal(String oid, Meal meal) {
         Optional<Restaurant> restaurantOptional = Optional.fromNullable(restaurants.get().findOne(new ObjectId(oid)).as(Restaurant.class));
-
+        //TODO: Use precondition checkPresent instead
         if (restaurantOptional.isPresent()) {
             Restaurant restaurant = restaurantOptional.get();
             restaurant.getMeals().add(meal);
@@ -84,6 +85,7 @@ public class RestaurantResource {
     @GET("/restaurants/{oid}/meals/{mid}")
     public Iterable<Meal> getMeals(String oid, String mid) {
         Optional<Restaurant> restaurantById = this.findRestaurantById(oid);
+        //TODO: Use precondition checkPresent instead
         if (restaurantById.isPresent()) {
             Restaurant restaurant = restaurantById.get();
             return restaurant.getMeals();
