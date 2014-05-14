@@ -5,7 +5,7 @@ wts:
   - when: |
        PUT restaurants/51a1b6b10edeff044953bbc0
 
-        {"name": "bordeaux"}
+        {"color": "GREEN"}
     then: |
        400
 
