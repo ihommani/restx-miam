@@ -12,7 +12,9 @@ import restx.security.PermitAll;
 
 import javax.inject.Named;
 
+import static restx.common.MorePreconditions.checkContainsKey;
 import static restx.common.MorePreconditions.checkEquals;
+import static restx.common.MorePreconditions.checkPresent;
 
 @Component
 @RestxResource
@@ -25,7 +27,7 @@ public class RestaurantResource {
     }
 
     @GET("/restaurants")
-    public Iterable<Restaurant> findrestaurants(Optional<String> name) {
+    public Iterable<Restaurant> findRestaurants(Optional<String> name) {
         if (name.isPresent()) {
             return restaurants.get().find("{name: #}", name.get()).as(Restaurant.class);
         } else {
@@ -39,27 +41,27 @@ public class RestaurantResource {
         return restaurant;
     }
 
-    @GET("/restaurants/{oid}")
-    public Optional<Restaurant> findRestaurantById(String oid) {
-        return Optional.fromNullable(restaurants.get().findOne(new ObjectId(oid)).as(Restaurant.class));
+    @GET("/restaurants/{color}")
+    public Optional<Restaurant> findRestaurantById(String color) {
+        return Optional.fromNullable(restaurants.get().findOne(new ObjectId(color)).as(Restaurant.class));
     }
 
-    @PUT("/restaurants/{oid}")
-    public Restaurant updateRestaurant(String oid, Restaurant restaurant) {
-        checkEquals("oid", oid, "restaurant.key", restaurant.getKey());
+    @PUT("/restaurants/{color}")
+    public Restaurant updateRestaurant(String color, Restaurant restaurant) {
+        checkEquals("color", color, "restaurant.color", restaurant.getColor());
         restaurants.get().save(restaurant);
         return restaurant;
     }
 
-    @DELETE("/restaurants/{oid}")
-    public Status deleteRestaurant(String oid) {
-        restaurants.get().remove(new ObjectId(oid));
+    @DELETE("/restaurants/{color}")
+    public Status deleteRestaurant(String color) {
+        restaurants.get().remove(new ObjectId(color));
         return Status.of("deleted");
     }
 
-    @GET("/restaurants/{oid}/meals")
-    public Iterable<Meal> getMeals(String oid) {
-        Optional<Restaurant> restaurantById = this.findRestaurantById(oid);
+    @GET("/restaurants/{color}/meals")
+    public Iterable<Meal> getMeals(String color) {
+        Optional<Restaurant> restaurantById = this.findRestaurantById(color);
         //TODO: Use precondition checkPresent instead
         if (restaurantById.isPresent()) {
             Restaurant restaurant = restaurantById.get();
@@ -68,9 +70,9 @@ public class RestaurantResource {
         return null;
     }
 
-    @POST("/restaurants/{oid}/meals")
-    public Meal createMeal(String oid, Meal meal) {
-        Optional<Restaurant> restaurantOptional = Optional.fromNullable(restaurants.get().findOne(new ObjectId(oid)).as(Restaurant.class));
+    @POST("/restaurants/{color}/meals")
+    public Meal createMeal(String color, Meal meal) {
+        Optional<Restaurant> restaurantOptional = Optional.fromNullable(restaurants.get().findOne(new ObjectId(color)).as(Restaurant.class));
         //TODO: Use precondition checkPresent instead
         if (restaurantOptional.isPresent()) {
             Restaurant restaurant = restaurantOptional.get();
@@ -82,9 +84,9 @@ public class RestaurantResource {
         return null;
     }
 
-    @GET("/restaurants/{oid}/meals/{mid}")
-    public Iterable<Meal> getMeals(String oid, String mid) {
-        Optional<Restaurant> restaurantById = this.findRestaurantById(oid);
+    @GET("/restaurants/{color}/meals/{mid}")
+    public Iterable<Meal> getMeals(String color, String mid) {
+        Optional<Restaurant> restaurantById = this.findRestaurantById(color);
         //TODO: Use precondition checkPresent instead
         if (restaurantById.isPresent()) {
             Restaurant restaurant = restaurantById.get();
