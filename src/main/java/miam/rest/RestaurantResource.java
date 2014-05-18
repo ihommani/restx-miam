@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import restx.Status;
 import restx.annotations.*;
 import restx.factory.Component;
+import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import restx.security.PermitAll;
 
@@ -57,41 +58,5 @@ public class RestaurantResource {
     public Status deleteRestaurant(String color) {
         restaurants.get().remove(new ObjectId(color));
         return Status.of("deleted");
-    }
-
-    @GET("/restaurants/{color}/meals")
-    public Iterable<Meal> getMeals(String color) {
-        Optional<Restaurant> restaurantById = this.findRestaurantById(color);
-        //TODO: Use precondition checkPresent instead
-        if (restaurantById.isPresent()) {
-            Restaurant restaurant = restaurantById.get();
-            return restaurant.getMeals();
-        }
-        return null;
-    }
-
-    @POST("/restaurants/{color}/meals")
-    public Meal createMeal(String color, Meal meal) {
-        Optional<Restaurant> restaurantOptional = Optional.fromNullable(restaurants.get().findOne(new ObjectId(color)).as(Restaurant.class));
-        //TODO: Use precondition checkPresent instead
-        if (restaurantOptional.isPresent()) {
-            Restaurant restaurant = restaurantOptional.get();
-            restaurant.getMeals().add(meal);
-            restaurants.get().save(restaurantOptional.get());
-
-            return meal;
-        }
-        return null;
-    }
-
-    @GET("/restaurants/{color}/meals/{mid}")
-    public Iterable<Meal> getMeals(String color, String mid) {
-        Optional<Restaurant> restaurantById = this.findRestaurantById(color);
-        //TODO: Use precondition checkPresent instead
-        if (restaurantById.isPresent()) {
-            Restaurant restaurant = restaurantById.get();
-            return restaurant.getMeals();
-        }
-        return null;
     }
 }
