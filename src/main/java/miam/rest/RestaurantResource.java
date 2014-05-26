@@ -1,6 +1,7 @@
 package miam.rest;
 
 import com.google.common.base.Optional;
+import miam.domain.Color;
 import miam.domain.Meal;
 import miam.domain.Restaurant;
 import org.bson.types.ObjectId;
@@ -44,12 +45,12 @@ public class RestaurantResource {
 
     @GET("/restaurants/{color}")
     public Optional<Restaurant> findRestaurantById(String color) {
-        return Optional.fromNullable(restaurants.get().findOne(new ObjectId(color)).as(Restaurant.class));
+        return Optional.fromNullable(restaurants.get().findOne("{_id:#}", Color.valueOf(color)).as(Restaurant.class));
     }
 
     @PUT("/restaurants/{color}")
     public Restaurant updateRestaurant(String color, Restaurant restaurant) {
-        checkEquals("color", color, "restaurant.color", restaurant.getColor());
+        checkEquals("color", Color.valueOf(color), "restaurant.color", restaurant.getColor());
         restaurants.get().save(restaurant);
         return restaurant;
     }

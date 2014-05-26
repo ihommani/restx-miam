@@ -11,7 +11,6 @@ import java.util.List;
 public class Restaurant {
 
     @Id
-    @ObjectId
     private Color color;
 
     private List<Meal> meals;
