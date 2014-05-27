@@ -2,21 +2,20 @@ package miam.rest;
 
 import com.google.common.base.Optional;
 import miam.domain.Color;
-import miam.domain.Meal;
 import miam.domain.Restaurant;
-import org.bson.types.ObjectId;
 import restx.Status;
-import restx.annotations.*;
+import restx.annotations.DELETE;
+import restx.annotations.GET;
+import restx.annotations.POST;
+import restx.annotations.PUT;
+import restx.annotations.RestxResource;
 import restx.factory.Component;
-import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import restx.security.PermitAll;
 
 import javax.inject.Named;
 
-import static restx.common.MorePreconditions.checkContainsKey;
 import static restx.common.MorePreconditions.checkEquals;
-import static restx.common.MorePreconditions.checkPresent;
 
 @Component
 @RestxResource
@@ -57,7 +56,7 @@ public class RestaurantResource {
 
     @DELETE("/restaurants/{color}")
     public Status deleteRestaurant(String color) {
-        restaurants.get().remove(new ObjectId(color));
+        restaurants.get().remove("{_id:#}", Color.valueOf(color));
         return Status.of("deleted");
     }
 }
